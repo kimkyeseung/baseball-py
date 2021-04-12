@@ -7,7 +7,6 @@ class BaseballGame():
     def __init__(cls):
         print('** 숫자야구게임! **')
         commnad_input = str(input('게임을 시작하시겠습니까? (Y/n)'))
-        print(commnad_input)
         if commnad_input in ['', 'y', 'Y', 'yes', 'Yes', 'YES']:
             cls.game_started = True
             cls.game_init()
@@ -45,7 +44,7 @@ class BaseballGame():
     def attemp_to_solve(cls):
         user_input = input('{}번의 기회가 남았습니다. 정답은 무엇일까요? :'.format(cls.life))
         user_input = user_input.strip().replace(' ', '').replace(',', '')
-        valid_input = cls.inputValidator(user_input)
+        valid_input = cls.input_validator(user_input)
         if valid_input.get('result'):
             result = cls.check_answer(user_input)
 
@@ -84,7 +83,7 @@ class BaseballGame():
             return {'is_won': False, 'message': 'OUT'}
 
 
-    def inputValidator(cls, user_input):
+    def input_validator(cls, user_input):
         if len(user_input) != cls.level:
             return {'result': False, 'message': '{}의 자릿수를 입력하여야 합니다.'.format(cls.level)}
 
