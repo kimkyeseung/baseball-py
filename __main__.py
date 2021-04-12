@@ -14,7 +14,6 @@ class BaseballGame():
             while cls.game_started and not cls.player_won and cls.life:
                 cls.attemp_to_solve()
             
-            print('축하합니다! 게임에서 승리하셨습니다' if cls.player_won else '게임에서 패배하셨습니다, 다시 도전해보세요!')
             if cls.player_won:
                 print('축하합니다! 게임에서 승리하셨습니다')
             else:
@@ -45,7 +44,7 @@ class BaseballGame():
         user_input = input('{}번의 기회가 남았습니다. 정답은 무엇일까요? :'.format(cls.life))
         user_input = user_input.strip().replace(' ', '').replace(',', '')
         valid_input = cls.input_validator(user_input)
-        if valid_input.get('result'):
+        if valid_input.get('is_valid'):
             result = cls.check_answer(user_input)
 
             if result.get('is_won'):
@@ -85,19 +84,19 @@ class BaseballGame():
 
     def input_validator(cls, user_input):
         if len(user_input) != cls.level:
-            return {'result': False, 'message': '{}의 자릿수를 입력하여야 합니다.'.format(cls.level)}
+            return {'is_valid': False, 'message': '{}의 자릿수를 입력하여야 합니다.'.format(cls.level)}
 
         for index, input_num in enumerate(user_input):
             try:
                 int(input_num)
             except:
-                return {'result': False, 'message': '숫자가 아닌 값이 포함되어있습니다.'}
+                return {'is_valid': False, 'message': '숫자가 아닌 값이 포함되어있습니다.'}
 
             listed_user_inputs = list(user_input)
             listed_user_inputs.pop(index)
             if input_num in listed_user_inputs:
-                return {'result': False, 'message': '같은 값의 숫자가 포함되어 있습니다.'}
+                return {'is_valid': False, 'message': '같은 값의 숫자가 포함되어 있습니다.'}
 
-        return {'result': True, 'message': ''}
+        return {'is_valid': True, 'message': ''}
 
 BaseballGame()
